@@ -65,24 +65,12 @@
                 constraints.append(topToSuperview(offset: insets.top, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
             }
             
-            if effectiveUserInterfaceLayoutDirection == .leftToRight {
-                
-                if !(excludedEdge.contains(.leading) || excludedEdge.contains(.left)) {
-                    constraints.append(leftToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                }
-                
-                if !(excludedEdge.contains(.trailing) || excludedEdge.contains(.right)) {
-                    constraints.append(rightToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                }
-            } else {
-                
-                if !(excludedEdge.contains(.leading) || excludedEdge.contains(.right)) {
-                    constraints.append(rightToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                }
-                
-                if !(excludedEdge.contains(.trailing) || excludedEdge.contains(.left)) {
-                    constraints.append(leftToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                }
+            if !(excludedEdge.contains(.leading) || excludedEdge.contains(.left)) {
+                constraints.append(leadingToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
+            }
+            
+            if !(excludedEdge.contains(.trailing) || excludedEdge.contains(.right)) {
+                constraints.append(trailingToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
             }
             
             if !excludedEdge.contains(.bottom) {
@@ -117,13 +105,8 @@
             
             var constraints = Constraints()
             
-            if effectiveUserInterfaceLayoutDirection == .leftToRight {
-                constraints.append(leftToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                constraints.append(rightToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-            } else {
-                constraints.append(rightToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-                constraints.append(leftToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
-            }
+            constraints.append(leadingToSuperview(offset: insets.left, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
+            constraints.append(trailingToSuperview(offset: -insets.right, relation: relation, priority: priority, isActive: isActive, usingSafeArea: usingSafeArea))
             
             return constraints
         }
